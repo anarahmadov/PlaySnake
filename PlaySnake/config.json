@@ -1,0 +1,9 @@
+{
+  "Window": {
+    "Title": "PlaySnake",
+    "Width": 100,
+    "Height": 300,
+    "Resizable": 0,
+    "Fullscreen": 0
+  }
+}
