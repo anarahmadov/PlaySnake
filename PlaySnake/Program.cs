@@ -1,22 +1,19 @@
 ﻿using PlaySnake;
 using PlaySnake.SystemServices;
 
+Console.CursorVisible = false;
 ConfigService.SetConstants();
+ConsoleLayout.SetCursorPosition(GameConsoleWideValues.MainMenu);
 
-Console.WriteLine("=====================================");
-Console.WriteLine("----- WELCOME TO PLAY SNAKE !!! -----");
-Console.WriteLine("=====================================");
-Console.WriteLine();
+ConsoleLayout.Write("=====================================");
+ConsoleLayout.Write("------- WELCOME TO PLAYSNAKE ! ------");
+ConsoleLayout.Write("=====================================");
+ConsoleLayout.Write();
 
-Console.WriteLine("Press any key to start the game...");
-Console.WriteLine();
+ConsoleLayout.Write("Press any key to start the game...");
+ConsoleLayout.Write();
 
 Console.ReadKey();
-Console.WriteLine();
+ConsoleLayout.Write();
 
 Menu.MainMenu();
-
-#region initialization
-
-
-#endregion

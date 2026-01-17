@@ -4,21 +4,22 @@ internal class Game
 {
     private const int PlayGroundWidth = 40;
     private const int PlayGroundHeight = 40;
-
-    private int[,] Area = new int[PlayGroundWidth, PlayGroundHeight];
-
     public static void Start(params string[] args)
     {
         Snake snake = new Snake();
         snake.Length = 5;
         snake.Score = 0;
-        Console.WriteLine("Welcome to PlaySnake!");
-        Console.WriteLine();
-        Console.WriteLine("Your snake: " + snake.ToString());
-        Console.WriteLine("Score: " + snake.Score);
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine();
+
+        Console.Clear();
+        ConsoleLayout.SetCursorPosition(GameConsoleWideValues.GameMenu);
+        ConsoleLayout.Write();
+        ConsoleLayout.Write("Good luck!");
+        ConsoleLayout.Write();
+        ConsoleLayout.Write("Your snake: " + snake.ToString());
+        ConsoleLayout.Write("Score: " + snake.Score);
+        ConsoleLayout.Write();
+        ConsoleLayout.Write(GameContent.SeparatorLineMax);
+        ConsoleLayout.Write();
 
         while (true)
         {
@@ -26,9 +27,10 @@ internal class Game
             game.DrawArea();
 
             var keyInfo = Console.ReadKey();
-            Move(keyInfo.Key);
+            if (keyInfo.Key == ConsoleKey.Q)
+                break;
 
-            break;
+            Move(keyInfo.Key);
         }
     }
 

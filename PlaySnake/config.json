@@ -1,9 +1,13 @@
 {
+  "AppName": "PlaySnake",
+  "Version":  "1.0.0",
+  "Author": "YourDevBuddy",
   "Window": {
     "Title": "PlaySnake",
-    "Width": 100,
-    "Height": 300,
-    "Resizable": 0,
-    "Fullscreen": 0
+    "MinColumns": 80,
+    "MinRows": 24,
+    "MaxColumns": 160,
+    "MaxRows": 50,
+    "Scale": 0.9
   }
 }
