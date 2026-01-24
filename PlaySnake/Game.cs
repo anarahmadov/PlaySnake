@@ -1,9 +1,12 @@
-﻿namespace PlaySnake;
+﻿using System.Text;
+
+namespace PlaySnake;
 
 internal class Game
 {
-    private const int PlayGroundWidth = 40;
-    private const int PlayGroundHeight = 40;
+    private const int PlayGroundWidth = 100;
+    private const int PlayGroundHeight = 50;
+
     public static void Start(params string[] args)
     {
         Snake snake = new Snake();
@@ -30,71 +33,52 @@ internal class Game
             if (keyInfo.Key == ConsoleKey.Q)
                 break;
 
-            Move(keyInfo.Key);
+            //Move(keyInfo.Key);
         }
     }
 
     private void DrawArea()
     {
-        Point topLeft = new Point(0, 0);
-        Point bottomLeft = new Point(0, PlayGroundHeight - 1);
+        var topLeft = new Point(0, 0);
+        var bottomLeft = new Point(0, PlayGroundHeight / 2 - 1);
 
         for (int x = 0; x < PlayGroundHeight; x++)
         {
             var currentPoint = new Point(x, 0);
+
             if (currentPoint.Equals(topLeft))
-            {
                 DrawHorizontalBorder();
-            }
-            else if (currentPoint.Equals(bottomLeft))
-            {
+            if (currentPoint.Equals(bottomLeft))
                 DrawHorizontalBorder();
-            }
-            DrawVerticalBorder();
-            for (int y = 0; y < PlayGroundHeight; y++)
-            {
-                DrawEmpty();
-            }
+
+            DrawLine(PlayGroundWidth);
         }
     }
 
-    private static void Move(ConsoleKey direction)
+    private void DrawLine(int width)
     {
-        switch (direction)
-        {
-            case ConsoleKey.DownArrow:
-                Console.WriteLine("Move Down");
-                break;
-            case ConsoleKey.UpArrow:
-                Console.WriteLine("Move Up");
-                break;
-            case ConsoleKey.LeftArrow:
-                Console.WriteLine("Move Left");
-                break;
-            case ConsoleKey.RightArrow:
-                Console.WriteLine("Move Right");
-                break;
-            default:
-                Console.WriteLine("Invalid Move");
-                break;
-        }
-    }
+        var emptyLine = new StringBuilder("|");
 
-    private void DrawEmpty()
-    {
-        Console.Write(" ");
+        for (int i = 0; i < width - 2; i++)
+            emptyLine.Append(" ");
+
+        emptyLine.Append("|");
+        Console.WriteLine(emptyLine.ToString());
     }
 
     private void DrawHorizontalBorder()
     {
         for (int i = 0; i < PlayGroundWidth; i++)
         {
-            Console.Write("=");
+            if (i == PlayGroundWidth - 1)
+                Console.Write("_");
+
+            Console.Write("_");
         }
     }
 
     private void DrawVerticalBorder()
     {
-        Console.WriteLine("||");
+        Console.Write("|");
     }
 }

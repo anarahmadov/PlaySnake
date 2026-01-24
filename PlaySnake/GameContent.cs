@@ -2,7 +2,7 @@
 
 internal static class GameContent
 {
-    internal static readonly string SeparatorLineMax = new string('-', Console.WindowWidth - 1);
+    internal static readonly string SeparatorLineMax = new string('-', Console.WindowWidth);
     internal static readonly string SeparatorLineSM = new string('-', 30);
     internal static readonly string SeparatorLineMD = new string('-', 50);
     internal static readonly string SeparatorLineL = new string('-', 100);

@@ -47,6 +47,11 @@ public static class Menu
         } while (true);
     }
 
+    private static void StartGame()
+    {
+        Game.Start();
+    }
+
     public static void CustomizationMenu()
     {
         Console.Clear();
