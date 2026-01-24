@@ -9,32 +9,28 @@ internal class Game
 
     public static void Start(params string[] args)
     {
-        Snake snake = new Snake();
-        snake.Length = 5;
-        snake.Score = 0;
+        //Snake snake = new Snake();
+        //snake.Length = 5;
+        //snake.Score = 0;
 
-        Console.Clear();
-        ConsoleLayout.SetCursorPosition(GameConsoleWideValues.GameMenu);
-        ConsoleLayout.Write();
-        ConsoleLayout.Write("Good luck!");
-        ConsoleLayout.Write();
-        ConsoleLayout.Write("Your snake: " + snake.ToString());
-        ConsoleLayout.Write("Score: " + snake.Score);
-        ConsoleLayout.Write();
-        ConsoleLayout.Write(GameContent.SeparatorLineMax);
-        ConsoleLayout.Write();
+        //Console.Clear();
+        //ConsoleLayout.SetCursorPosition(GameConsoleWideValues.GameMenu);
+        //ConsoleLayout.Write();
+        //ConsoleLayout.Write("Good luck!");
+        //ConsoleLayout.Write();
+        //ConsoleLayout.Write("Your snake: " + snake.ToString());
+        //ConsoleLayout.Write("Score: " + snake.Score);
+        //ConsoleLayout.Write();
+        //ConsoleLayout.Write(GameContent.SeparatorLineMax);
+        //ConsoleLayout.Write();
 
-        while (true)
-        {
-            Game game = new Game();
-            game.DrawArea();
+        //while (true)
+        //{
+        //    Game game = new Game();
+        //    game.DrawArea();
 
-            var keyInfo = Console.ReadKey();
-            if (keyInfo.Key == ConsoleKey.Q)
-                break;
-
-            //Move(keyInfo.Key);
-        }
+        //    Snake.Run();
+        //}
     }
 
     private void DrawArea()
@@ -75,10 +71,5 @@ internal class Game
 
             Console.Write("_");
         }
-    }
-
-    private void DrawVerticalBorder()
-    {
-        Console.Write("|");
     }
 }
