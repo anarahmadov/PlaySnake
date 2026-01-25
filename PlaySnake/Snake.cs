@@ -50,20 +50,20 @@ internal static class Snake
             switch (consoleKey)
             {
                 case ConsoleKey.UpArrow:
-                    if (_currentDirection != Direction.DOWN)
-                        _currentDirection = Direction.UP;
+                    if (_currDirection != Direction.DOWN)
+                        _currDirection = Direction.UP;
                     break;
                 case ConsoleKey.DownArrow:
-                    if (_currentDirection != Direction.UP)
-                        _currentDirection = Direction.DOWN;
+                    if (_currDirection != Direction.UP)
+                        _currDirection = Direction.DOWN;
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (_currentDirection != Direction.RIGHT)
-                        _currentDirection = Direction.LEFT;
+                    if (_currDirection != Direction.RIGHT)
+                        _currDirection = Direction.LEFT;
                     break;
                 case ConsoleKey.RightArrow:
-                    if (_currentDirection != Direction.LEFT)
-                        _currentDirection = Direction.RIGHT;
+                    if (_currDirection != Direction.LEFT)
+                        _currDirection = Direction.RIGHT;
                     break;
                 default:
                     break;
