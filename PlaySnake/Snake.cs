@@ -1,15 +1,20 @@
 ﻿namespace PlaySnake;
 
-enum Direction
+class Direction
 {
-    UP = -1,
-    DOWN = 1,
-    LEFT = -1,
-    RIGHT = 1
+    public const string UP = "UP";
+    public const string DOWN = "DOWN";
+    public const string LEFT = "LEFT";
+    public const string RIGHT = "RIGHT";
 }
 
 internal static class Snake
 {
+    private static int topBorder = 0; 
+    private static int bottomBorder = 50; 
+    private static int rightBorder = 100; 
+    private static int leftBorder = 0;
+    
     private static List<(int, int)> _bodyCoords = new();
     private static List<(int, int)> BodyCoords
     {
@@ -21,8 +26,9 @@ internal static class Snake
     }
 
     public const int Length = 5;
-    private static Direction _currDirection = Direction.RIGHT;
-    private static Direction _prevDirection = Direction.RIGHT;
+    private static string _currDirection = "RIGHT";
+    private static string _prevDirection = "RIGHT";
+    private static bool firstRun = true;
 
     static Snake()
     {
@@ -33,13 +39,7 @@ internal static class Snake
     {
         new Thread(InputHandler).Start();
 
-        while (true)
-        {
-            Thread.Sleep(500);
-            ClearSnake();
-            MoveCursor();
-            Draw();
-        }
+        PopulateCoordsAfterMove(BodyCoords[0]);
     }
 
     private static void InputHandler()
@@ -70,76 +70,118 @@ internal static class Snake
             }
         }
     }
+    private static void DrawInitialSnake()
+    {
+        Console.SetCursorPosition(51, 25);
+        Console.Write(new string('.', 5));
+        Console.SetCursorPosition(55, 25);
 
-    private static void Draw()
-    {
-        foreach (var coord in BodyCoords)
-        {
-            Console.SetCursorPosition(coord.Item1, coord.Item2);
-            Console.Write(".");
-        }
-    }
-    private static void MoveCursor()
-    {
-        if (_currDirection == Direction.UP)
-        {
-           
-        }
-        else if (_currDirection == Direction.DOWN)
-        {
-            var head = BodyCoords[0];
-            var headTop = head.Item2;
-            var headLeft = head.Item1;
-            for (int i = 0; i < BodyCoords.Count; i++)
-            {
+        PopulateInitialCoords();
 
-            }
-        }
-        else if (_currDirection == Direction.LEFT)
+        void PopulateInitialCoords()
         {
-            var head = BodyCoords[0];
-            BodyCoords.RemoveAt(BodyCoords.Count - 1);
-            BodyCoords.Insert(0, (head.Item1 - 1, head.Item2));
-        }
-        else if (_currDirection == Direction.RIGHT)
-        {
-            var head = BodyCoords[0];
-            BodyCoords.RemoveAt(BodyCoords.Count - 1);
-            BodyCoords.Insert(0, (head.Item1 + 1, head.Item2));
+            BodyCoords.Clear();
+            BodyCoords.Add((55, 25));
+            BodyCoords.Add((54, 25));
+            BodyCoords.Add((53, 25));
+            BodyCoords.Add((52, 25));
+            BodyCoords.Add((51, 25));
         }
     }
-    private static void IsSnakeStraight()
+
+    private static void Draw(int index)
     {
+        Console.SetCursorPosition(BodyCoords[index].Item1, BodyCoords[index].Item2);
+        Console.Write(".");
     }
-    private static void ClearSnake()
+
+    private static void PopulateCoordsAfterMove((int, int) currentCoords, int index = 0)
+    {
+        if (_currDirection == _prevDirection && index > 0 && index < BodyCoords.Count)
+        {
+            if (IsSnakeColliding())
+                return;
+
+            var prev = BodyCoords[index];
+            var newCoord = currentCoords;
+            Clear(BodyCoords[index]);
+            SetCoords(index, newCoord);
+            Draw(index);
+            PopulateCoordsAfterMove(prev, ++index);
+        }
+        else
+        {
+            if (IsSnakeColliding())
+                return;
+
+            Thread.Sleep(500);
+            index = 0;
+            var prev = BodyCoords[0];
+            SetCoords(0, _currDirection);
+            Draw(0);
+            Clear(prev);
+            _prevDirection = _currDirection;
+            PopulateCoordsAfterMove(prev, ++index);
+        }
+    }
+
+    private static void Clear((int, int) coords)
+    {
+        Console.SetCursorPosition(coords.Item1, coords.Item2);
+        Console.Write(" ");
+    }
+    private static void Clear(int index)
+    {
+        Console.SetCursorPosition(BodyCoords[index].Item1, BodyCoords[index].Item2);
+        Console.Write(" ");
+    }
+    private static void Clear()
     {
         foreach (var coord in BodyCoords)
         {
             Console.SetCursorPosition(coord.Item1, coord.Item2);
             Console.Write(" ");
         }
-        ClearCoords();
     }
-    private static void ClearCoords()
-    {
-        BodyCoords.Clear();
-    }
-    private static void DrawInitialSnake()
-    {
-        Console.SetCursorPosition(45, 25);
-        Console.Write(new string('.', 5));
-        Console.SetCursorPosition(55, 25);
 
-        PopulateInitialCoords();
-    }
-    private static void PopulateInitialCoords()
+    private static bool IsSnakeStraight()
     {
-        BodyCoords.Clear();
-        BodyCoords.Add((55, 25));
-        BodyCoords.Add((54, 25));
-        BodyCoords.Add((53, 25));
-        BodyCoords.Add((52, 25));
-        BodyCoords.Add((51, 25));
+        var leftOfFirstPart = BodyCoords[0].Item1;
+        var topOfFirstPart = BodyCoords[0].Item2;
+
+        var vertical = BodyCoords.All(x => x.Item1.Equals(leftOfFirstPart));
+        var horizontal = BodyCoords.All(x => x.Item2.Equals(topOfFirstPart));
+
+        return vertical || horizontal;
+    }
+    private static bool IsSnakeColliding()
+    {
+        var head = BodyCoords[0];
+        return head.Item1.Equals(leftBorder) || head.Item1.Equals(rightBorder) ||
+               head.Item2.Equals(topBorder) || head.Item2.Equals(bottomBorder);
+    }
+
+    private static void SetCoords(int index, string direction)
+    {
+        switch (direction)
+        {
+            case Direction.UP:
+                BodyCoords[index] = (BodyCoords[index].Item1, BodyCoords[index].Item2 - 1);
+                break;
+            case Direction.DOWN:
+                BodyCoords[index] = (BodyCoords[index].Item1, BodyCoords[index].Item2 + 1);
+                break;
+            case Direction.LEFT:
+                BodyCoords[index] = (BodyCoords[index].Item1 - 1, BodyCoords[index].Item2);
+                break;
+            case Direction.RIGHT:
+                BodyCoords[index] = (BodyCoords[index].Item1 + 1, BodyCoords[index].Item2);
+                break;
+        }
+    }
+    private static void SetCoords(int index, (int, int) prevCoords)
+    {
+        BodyCoords[index] = prevCoords;
     }
 
     #region old methods

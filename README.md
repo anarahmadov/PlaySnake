@@ -9,3 +9,14 @@ The thing I learnt today is that when you write any program - it really doesn't 
 
 After several days of waste of time, today I understood it. The thing I need to solve is simple figuring out how you should move the console cursor to make it draw correct form of snake in each clock tick.
 So no code design initially. No yapping. No waste of time. Just focus on problem. Then you will easily, gradually be able to refactor it on the way. Ofc, if you want.. That's it
+
+# Day 4.
+Finally!
+
+I'm writing readme file midnight.. :) Today I made a decision to start doing a little brainstorming.. I thought I need to think on it by fresh brain, because it has been a few weeks I have not been doing snake game. 
+So guess what? I think, I finalized the gameplay. I mean, my snake can run at the moment. I can direct it anywhere I want (left, right, top, bottom). 
+Feels like I invented new rocket technology towards cosmos, anyway..
+
+I'll commit it. You'll see. I did it without any help from internet. It made me feel fresh. So I'll probably focus more on remaining features in the upcoming days.
+
+So Enjoy my snake! :D
