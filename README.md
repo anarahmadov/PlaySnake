@@ -1,5 +1,5 @@
 # PlaySnake
-It is a humble snake going through windows console. If you would like to see improvements, feel free to open issue!
+It is a humble snake running through your windows console. If you would like to see improvements, feel free to open issue!
 
 # Day 3.
 I realized that it's really hard to understand how the cursor should be navigated each second rather than blindly trying to design your code base.
